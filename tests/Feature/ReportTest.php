@@ -13,9 +13,9 @@ class ReportTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_api_customersにGETメソッドでアクセスできる()
     {
-        $response = $this->get('/');
+        $response = $this->get('api/customers');
 
         $response->assertStatus(200);
     }
