@@ -22,6 +22,7 @@ Route::delete('customers/{customer_id}', function() {});
 Route::get('reports', function() {});
 Route::post('reports', function() {});
 Route::get('reports/{report_id}', function() {});
+Route::put('reports/{report_id}', function() {});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
