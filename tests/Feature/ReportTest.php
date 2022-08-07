@@ -8,6 +8,15 @@ use Tests\TestCase;
 
 class ReportTest extends TestCase
 {
+    use RefreshDatabase;
+
+    // 初期データの投入(各テストメソッドが呼ばれるたびにデータが作成される)
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->artisan('db:seed', ['--class' => 'TestDataSeeder', '--database'=> config('app.db_test_database')]);
+    }
+
     /**
      * A basic feature test example.
      *

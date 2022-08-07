@@ -232,4 +232,6 @@ return [
 
     ],
 
+    'db_test_database' => env('DB_TEST_DATABASE'),
+
 ];
