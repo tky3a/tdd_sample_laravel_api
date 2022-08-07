@@ -43,11 +43,28 @@ class ReportTest extends TestCase
         $this->assertSame(['id', 'name'], array_keys($customer));
     }
 
+    // public function test_api_customersにGETメソッドでアクセスすると２件の顧客リスト()
+    // {
+    //     $response = $this->get('api/customers');
+    //     $response->assertJsonCount(2);
+    // }
+
     public function test_api_customersにPOSTメソッドでアクセスできる()
     {
-        $response = $this->post('api/customers');
-
+        $customer = [
+            'name' => 'customer_name'
+        ];
+        $response = $this->postJson('api/customers', $customer);
         $response->assertStatus(200);
+    }
+
+    public function test_api_customersに顧客名をPOSTするとcustomersテーブルにそのデータが追加される()
+    {
+        $params = [
+            'name' => '顧客名'
+        ];
+        $this->postJson('api/customers', $params);
+        $this->assertDatabaseHas('customers', $params);
     }
 
     public function test_api_customers_customer_idにGETメソッドでアクセスできる()
