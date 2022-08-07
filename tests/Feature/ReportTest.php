@@ -35,6 +35,14 @@ class ReportTest extends TestCase
         $this->assertThat($response->content(), $this->isJson());
     }
 
+    public function test_api_customersにGETメソッドで取得できる顧客情報のJSON形式が要件通りである()
+    {
+        $response = $this->get('api/customers');
+        $customers = $response->json();
+        $customer = $customers[0];
+        $this->assertSame(['id', 'name'], array_keys($customer));
+    }
+
     public function test_api_customersにPOSTメソッドでアクセスできる()
     {
         $response = $this->post('api/customers');

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('customers', function() {
-    return response()->json(\App\Models\Customer::query()->get());
+    return response()->json(\App\Models\Customer::query()->select(['id', 'name'])->get());
 });
 Route::post('customers', function() {});
 Route::get('customers/{customer_id}', function() {});
