@@ -67,6 +67,22 @@ class ReportTest extends TestCase
         $this->assertDatabaseHas('customers', $params);
     }
 
+    public function test_api_customersにPOSTするときnameが含まれない場合に422UnprocessableRntityが返却()
+    {
+        $params = [];
+        $response = $this->postJson('api/customers', $params);
+        $response->assertStatus(\Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_api_customersにPOSTするときnameが空の場合に422UnprocessableRntityが返却()
+    {
+        $params = [
+            'name' => '',
+        ];
+        $response = $this->postJson('api/customers', $params);
+        $response->assertStatus(\Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
     public function test_api_customers_customer_idにGETメソッドでアクセスできる()
     {
         $response = $this->get('api/customers/1');
