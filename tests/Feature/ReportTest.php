@@ -14,7 +14,7 @@ class ReportTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->artisan('db:seed', ['--class' => 'TestDataSeeder', '--database'=> config('app.db_test_database')]);
+        $this->artisan('db:seed', ['--class' => 'TestDataSeeder', '--database' => config('app.db_test_database')]);
     }
 
     /**
@@ -56,6 +56,22 @@ class ReportTest extends TestCase
         ];
         $response = $this->postJson('api/customers', $customer);
         $response->assertStatus(200);
+    }
+
+    public function test_api_customersにPOSTのエラーレスポンス確認()
+    {
+        $params = ['name' => ''];
+        $response = $this->postJson('api/customers', $params);
+        // ここが不明
+        $error_response = [
+            'message' => "The given data was invalid.",
+            'errors' => [
+                'name' => [
+                    'name は必須項目です'
+                ]
+            ]
+        ];
+        $response->assertExactJson($error_response);
     }
 
     public function test_api_customersに顧客名をPOSTするとcustomersテーブルにそのデータが追加される()
